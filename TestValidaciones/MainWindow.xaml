@@ -1,0 +1,43 @@
+﻿<Window x:Class="TestValidaciones.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestValidaciones"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid HorizontalAlignment="Left" Height="204" Margin="105,58,0,0" VerticalAlignment="Top" Width="267">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type ValidationError}">
+                    <StackPanel Orientation="Vertical">
+                        <AdornedElementPlaceholder></AdornedElementPlaceholder>
+                        <TextBlock Text="{Binding ErrorContent}" Foreground="White" Background="Red" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>
+                </DataTemplate>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="128*"/>
+                <ColumnDefinition Width="139*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="19*"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left" Margin="24,10,0,0" TextWrapping="Wrap" Text="Nombre en A" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="20,27,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Valor" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="32,26,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Nombre en B" VerticalAlignment="Top"/>
+            <TextBox x:Name="text1" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="{Binding objetoB.nombre, ValidatesOnNotifyDataErrors=True,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+            <ContentPresenter Grid.Column="1" Content="{Binding ElementName= text1, Path=(Validation.Errors)/ErrorContent}" HorizontalAlignment="Left"/>
+            <TextBox x:Name="text2" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="18,27,0,0" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="{Binding objetoB.valor, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=LostFocus}"/>
+            <ContentPresenter Grid.Column="1" Grid.Row="1" Content="{Binding ElementName= text2, Path=(Validation.Errors)/ErrorContent}" HorizontalAlignment="Left"/>
+            <TextBox x:Name="text3" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,26,0,0" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="{Binding objetoB.nombreb, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+            <ContentPresenter Grid.Column="1" Grid.Row="2"  Content="{Binding ElementName= text3, Path=(Validation.Errors)/ErrorContent}" HorizontalAlignment="Left"/>
+        </Grid>
+
+    </Grid>
+</Window>
